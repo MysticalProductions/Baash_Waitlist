@@ -118,6 +118,8 @@ opacity:.6;
 cursor:not-allowed;
 }
 
+/* LOADER */
+
 .loader-overlay{
 position:fixed;
 top:0;
@@ -153,7 +155,9 @@ transform:rotate(360deg);
 }
 }
 
-.success-popup{
+/* POPUP */
+
+.popup{
 position:fixed;
 top:50%;
 left:50%;
@@ -171,22 +175,22 @@ transition:.3s;
 z-index:1000;
 }
 
-.success-popup.active{
+.popup.active{
 opacity:1;
 pointer-events:auto;
 transform:translate(-50%,-50%) scale(1);
 }
 
-.success-icon{
+.popup-icon{
 font-size:60px;
 margin-bottom:15px;
 }
 
-.success-popup h2{
+.popup h2{
 margin-bottom:10px;
 }
 
-.success-popup p{
+.popup p{
 opacity:.7;
 line-height:1.6;
 margin-bottom:25px;
@@ -209,6 +213,7 @@ font-size:15px;
 <body>
 
 <!-- LOADER -->
+
 <div class="loader-overlay" id="loader">
 
 <div class="loader"></div>
@@ -219,16 +224,20 @@ Registering...
 
 </div>
 
-<!-- SUCCESS POPUP -->
-<div class="success-popup" id="successPopup">
+<!-- POPUP -->
 
-<div class="success-icon">🎉</div>
+<div class="popup" id="popup">
 
-<h2>Registration Successful</h2>
+<div class="popup-icon" id="popupIcon">
+🎉
+</div>
 
-<p>
+<h2 id="popupTitle">
+Registration Successful
+</h2>
+
+<p id="popupMessage">
 You have successfully registered for the BAASH experience.
-See you at the event.
 </p>
 
 <button class="close-btn" onclick="closePopup()">
@@ -240,11 +249,13 @@ Done
 <div class="container">
 
 <!-- TOP LOGO -->
+
 <div class="top-logo">
 <img src="logo.png" alt="BAASH Logo">
 </div>
 
 <!-- BAASH TEXT -->
+
 <div class="logo">BAASH</div>
 
 <h1>Party Registration</h1>
@@ -274,7 +285,9 @@ required
 <input 
 type="tel" 
 name="phone" 
-placeholder="Contact Number" 
+id="phone"
+placeholder="Contact Number"
+maxlength="10"
 required
 >
 
@@ -296,13 +309,40 @@ const form = document.getElementById("partyForm");
 
 const loader = document.getElementById("loader");
 
-const successPopup = document.getElementById("successPopup");
+const popup = document.getElementById("popup");
+
+const popupIcon = document.getElementById("popupIcon");
+
+const popupTitle = document.getElementById("popupTitle");
+
+const popupMessage = document.getElementById("popupMessage");
 
 const submitBtn = document.getElementById("submitBtn");
 
 form.addEventListener("submit", e => {
 
 e.preventDefault();
+
+const phone = document.getElementById("phone").value.trim();
+
+const phoneRegex = /^[6-9]\d{9}$/;
+
+// MOBILE NUMBER VALIDATION
+
+if(!phoneRegex.test(phone)){
+
+popupIcon.innerHTML = "📱";
+
+popupTitle.innerHTML = "Invalid Mobile Number";
+
+popupMessage.innerHTML =
+"Please enter a valid 10-digit mobile number.";
+
+popup.classList.add("active");
+
+return;
+
+}
 
 loader.style.display = "flex";
 
@@ -321,13 +361,27 @@ submitBtn.disabled = false;
 
 if(data.status === "success"){
 
-successPopup.classList.add("active");
+popupIcon.innerHTML = "🎉";
+
+popupTitle.innerHTML = "Registration Successful";
+
+popupMessage.innerHTML =
+"You have successfully registered for the BAASH experience.";
+
+popup.classList.add("active");
 
 form.reset();
 
 }else{
 
-alert("Submission failed");
+popupIcon.innerHTML = "❌";
+
+popupTitle.innerHTML = "Registration Failed";
+
+popupMessage.innerHTML =
+"Something went wrong while submitting your registration.";
+
+popup.classList.add("active");
 
 }
 
@@ -340,7 +394,14 @@ submitBtn.disabled = false;
 
 console.error(error);
 
-alert("Something went wrong!");
+popupIcon.innerHTML = "⚠️";
+
+popupTitle.innerHTML = "Server Error";
+
+popupMessage.innerHTML =
+"Unable to connect to server. Please try again.";
+
+popup.classList.add("active");
 
 });
 
@@ -348,7 +409,7 @@ alert("Something went wrong!");
 
 function closePopup(){
 
-successPopup.classList.remove("active");
+popup.classList.remove("active");
 
 }
 

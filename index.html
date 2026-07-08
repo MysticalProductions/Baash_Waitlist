@@ -1,420 +1,614 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>BAASH X EY</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<title>BAASH × Convertway</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+:root {
+  --bg: #08080a;
+  --surface: rgba(18,18,22,0.85);
+  --border: rgba(255,255,255,0.06);
+  --border-active: rgba(139,92,246,0.5);
+  --text: #ffffff;
+  --text-sec: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.3);
+  --grad-1: #8b5cf6;
+  --grad-2: #6366f1;
+  --grad-3: #a855f7;
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-body{
-background:#050505;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
-overflow:hidden;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
-.container{
-max-width:500px;
-width:100%;
-text-align:center;
-position:relative;
-z-index:2;
+body {
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
 }
 
-.top-logo{
-display:flex;
-justify-content:center;
-margin-bottom:15px;
+/* Animated background orbs */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+body::before {
+  width: 400px;
+  height: 400px;
+  background: rgba(139,92,246,0.12);
+  top: -120px;
+  left: -120px;
+  animation: orbA 12s ease-in-out infinite alternate;
+}
+body::after {
+  width: 350px;
+  height: 350px;
+  background: rgba(168,85,247,0.08);
+  bottom: -100px;
+  right: -100px;
+  animation: orbB 10s ease-in-out infinite alternate;
 }
 
-.top-logo img{
-width:90px;
-height:90px;
-object-fit:contain;
+@keyframes orbA {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 80px) scale(1.15); }
+}
+@keyframes orbB {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, -60px) scale(1.2); }
 }
 
-.logo{
-font-size:52px;
-letter-spacing:6px;
-font-weight:600;
-background:linear-gradient(90deg,#8b3dff,#ff00aa);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-margin-bottom:20px;
+.container {
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-h1{
-font-size:32px;
-margin-bottom:10px;
+/* Card */
+.card {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 32px 36px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  transition: border-color var(--transition);
 }
 
-.subtitle{
-opacity:.7;
-margin-bottom:35px;
-line-height:1.6;
+/* Logos row */
+.logo-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
 }
 
-.form-box{
-background:#0d0d0d;
-padding:30px;
-border-radius:18px;
-border:1px solid #1c1c1c;
+.logo-row .logo-wrap {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform var(--transition), border-color var(--transition);
 }
 
-input{
-width:100%;
-padding:15px;
-margin-top:14px;
-border:none;
-border-radius:10px;
-background:#121212;
-color:white;
-font-size:15px;
-outline:none;
+.logo-row .logo-wrap:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.12);
 }
 
-input:focus{
-border:1px solid #8b3dff;
+.logo-row img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
 }
 
-button{
-width:100%;
-margin-top:22px;
-padding:15px;
-border:none;
-border-radius:10px;
-background:linear-gradient(90deg,#8b3dff,#ff00aa);
-color:white;
-font-size:16px;
-font-weight:500;
-cursor:pointer;
-transition:.3s;
+.convertway-wrap {
+  width: 120px;
+  height: 120px;
 }
 
-button:hover{
-transform:scale(1.02);
+.convertway-wrap img {
+  width: 72px;
+  height: 72px;
 }
 
-button:disabled{
-opacity:.6;
-cursor:not-allowed;
+.convertway-logo {
+  filter: invert(1);
+}
+
+.logo-divider {
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+/* Brand */
+.brand {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--grad-1), var(--grad-3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-sec);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* Form */
+.form-group {
+  position: relative;
+  margin-top: 12px;
+}
+
+.form-group:first-of-type {
+  margin-top: 0;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-group input:focus {
+  border-color: var(--border-active);
+  background: rgba(255,255,255,0.07);
+}
+
+.form-group input.error {
+  border-color: #ef4444;
+}
+
+.form-group .error-msg {
+  display: none;
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 6px;
+  text-align: left;
+  padding-left: 4px;
+}
+
+.form-group input.error ~ .error-msg {
+  display: block;
+}
+
+/* Submit button */
+.btn-submit {
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--grad-1), var(--grad-2));
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  position: relative;
+}
+
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(99,102,241,0.25);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Footer links */
+.footer-links {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 12px;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--text-sec);
 }
 
 /* LOADER */
-
-.loader-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.92);
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:999;
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-.loader{
-width:70px;
-height:70px;
-border:5px solid #222;
-border-top:5px solid #ff00aa;
-border-radius:50%;
-animation:spin 1s linear infinite;
+.loader-ring {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255,255,255,0.06);
+  border-top-color: var(--grad-1);
+  border-bottom-color: var(--grad-2);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
 }
 
-.loader-text{
-margin-top:20px;
-font-size:18px;
-color:white;
+.loader-text {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--text-sec);
+  letter-spacing: 0.3px;
 }
 
-@keyframes spin{
-100%{
-transform:rotate(360deg);
-}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* POPUP */
-
-.popup{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%) scale(.8);
-background:#0d0d0d;
-padding:35px;
-border-radius:20px;
-border:1px solid #2a2a2a;
-text-align:center;
-width:90%;
-max-width:400px;
-opacity:0;
-pointer-events:none;
-transition:.3s;
-z-index:1000;
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-.popup.active{
-opacity:1;
-pointer-events:auto;
-transform:translate(-50%,-50%) scale(1);
+.popup-overlay.active {
+  display: flex;
 }
 
-.popup-icon{
-font-size:60px;
-margin-bottom:15px;
+.popup {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 28px 28px;
+  text-align: center;
+  width: 90%;
+  max-width: 360px;
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.popup h2{
-margin-bottom:10px;
+.popup-icon {
+  font-size: 48px;
+  margin-bottom: 14px;
+  line-height: 1;
 }
 
-.popup p{
-opacity:.7;
-line-height:1.6;
-margin-bottom:25px;
+.popup h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
-.close-btn{
-padding:12px 25px;
-border:none;
-border-radius:10px;
-background:linear-gradient(90deg,#8b3dff,#ff00aa);
-color:white;
-cursor:pointer;
-font-size:15px;
+.popup p {
+  color: var(--text-sec);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }
 
+.btn-close {
+  padding: 11px 36px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--grad-1), var(--grad-2));
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-close:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(99,102,241,0.25);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 500px) {
+  .card {
+    padding: 28px 20px 28px;
+  }
+
+  .logo-row .logo-wrap {
+    width: 76px;
+    height: 76px;
+  }
+
+  .convertway-wrap {
+    width: 96px;
+    height: 96px;
+  }
+
+  .convertway-wrap img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .logo-row img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .logo-row {
+    gap: 14px;
+  }
+
+  .brand {
+    font-size: 36px;
+  }
+
+  h1 {
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo-row .logo-wrap {
+    width: 64px;
+    height: 64px;
+  }
+
+  .convertway-wrap {
+    width: 80px;
+    height: 80px;
+  }
+
+  .convertway-wrap img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .logo-row img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logo-row {
+    gap: 10px;
+  }
+
+  .logo-divider {
+    font-size: 18px;
+  }
+
+  .brand {
+    font-size: 30px;
+  }
+}
 </style>
-
 </head>
-
 <body>
 
 <!-- LOADER -->
-
 <div class="loader-overlay" id="loader">
-
-<div class="loader"></div>
-
-<div class="loader-text">
-Registering...
-</div>
-
+  <div class="loader-ring"></div>
+  <div class="loader-text">Registering...</div>
 </div>
 
 <!-- POPUP -->
-
-<div class="popup" id="popup">
-
-<div class="popup-icon" id="popupIcon">
-🎉
-</div>
-
-<h2 id="popupTitle">
-Registration Successful
-</h2>
-
-<p id="popupMessage">
-You have successfully registered for the BAASH experience.
-</p>
-
-<button class="close-btn" onclick="closePopup()">
-Done
-</button>
-
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <div class="popup-icon" id="popupIcon">🎉</div>
+    <h2 id="popupTitle">Registration Successful</h2>
+    <p id="popupMessage">You have successfully registered for the BAASH experience.</p>
+    <button class="btn-close" onclick="closePopup()">Done</button>
+  </div>
 </div>
 
 <div class="container">
 
-<!-- TOP LOGO -->
+  <div class="card">
 
-<div class="top-logo">
-<img src="logo.png" alt="BAASH Logo">
-</div>
+    <!-- LOGOS -->
+    <div class="logo-row">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="BAASH Logo">
+      </div>
+      <span class="logo-divider">×</span>
+      <div class="logo-wrap convertway-wrap">
+        <img src="convertway.png" alt="Convertway Logo" class="convertway-logo">
+      </div>
+    </div>
 
-<!-- BAASH TEXT -->
+    <h1>Party Registration</h1>
+    <p class="subtitle">
+      Register now for the BAASH experience.
+    </p>
 
-<div class="logo">BAASH</div>
+    <!-- FORM -->
+    <form id="partyForm" novalidate>
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
+      </div>
 
-<h1>Party Registration</h1>
+      <div class="form-group">
+        <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
+      </div>
 
-<p class="subtitle">
-Register now to confirm your entry for the upcoming BAASH experience.
-</p>
+      <div class="form-group">
+        <input type="tel" name="phone" id="phone" placeholder="Contact Number" maxlength="10" required autocomplete="tel">
+        <div class="error-msg">Please enter a valid 10-digit mobile number.</div>
+      </div>
 
-<div class="form-box">
+      <button type="submit" class="btn-submit" id="submitBtn">Register Now</button>
+    </form>
 
-<form id="partyForm">
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </div>
 
-<input 
-type="text" 
-name="name" 
-placeholder="Full Name" 
-required
->
-
-<input 
-type="email" 
-name="email" 
-placeholder="Email Address" 
-required
->
-
-<input 
-type="tel" 
-name="phone" 
-id="phone"
-placeholder="Contact Number"
-maxlength="10"
-required
->
-
-<button type="submit" id="submitBtn">
-Register Now
-</button>
-
-</form>
-
-</div>
+  </div>
 
 </div>
 
 <script>
-
 const scriptURL = "https://script.google.com/macros/s/AKfycbxSvi6dbyISlIPviTKAGnDhwLkyW-P39-5gkEgoGVBp3xmKnFaosdxICOyNwIzgJMtOwQ/exec";
 const form = document.getElementById("partyForm");
-
 const loader = document.getElementById("loader");
-
-const popup = document.getElementById("popup");
-
+const popupOverlay = document.getElementById("popupOverlay");
 const popupIcon = document.getElementById("popupIcon");
-
 const popupTitle = document.getElementById("popupTitle");
-
 const popupMessage = document.getElementById("popupMessage");
-
 const submitBtn = document.getElementById("submitBtn");
+const phoneInput = document.getElementById("phone");
+
+phoneInput.addEventListener("input", () => {
+  const val = phoneInput.value.replace(/\D/g, "");
+  phoneInput.value = val;
+  phoneInput.classList.toggle("error", val.length > 0 && val.length < 10);
+});
+
+phoneInput.addEventListener("blur", () => {
+  phoneInput.classList.toggle("error", phoneInput.value.length > 0 && phoneInput.value.length < 10);
+});
 
 form.addEventListener("submit", e => {
+  e.preventDefault();
 
-e.preventDefault();
+  const phone = phoneInput.value.trim();
+  const phoneRegex = /^[6-9]\d{9}$/;
 
-const phone = document.getElementById("phone").value.trim();
+  document.querySelectorAll(".form-group input.error").forEach(el => el.classList.remove("error"));
 
-const phoneRegex = /^[6-9]\d{9}$/;
+  if (!phoneRegex.test(phone)) {
+    phoneInput.classList.add("error");
+    popupIcon.innerHTML = "📱";
+    popupTitle.innerHTML = "Invalid Mobile Number";
+    popupMessage.innerHTML = "Please enter a valid 10-digit mobile number starting with 6-9.";
+    popupOverlay.classList.add("active");
+    return;
+  }
 
-// MOBILE NUMBER VALIDATION
+  loader.style.display = "flex";
+  submitBtn.disabled = true;
 
-if(!phoneRegex.test(phone)){
+  fetch(scriptURL, {
+    method: "POST",
+    body: new FormData(form)
+  })
+  .then(response => response.json())
+  .then(data => {
+    loader.style.display = "none";
+    submitBtn.disabled = false;
 
-popupIcon.innerHTML = "📱";
-
-popupTitle.innerHTML = "Invalid Mobile Number";
-
-popupMessage.innerHTML =
-"Please enter a valid 10-digit mobile number.";
-
-popup.classList.add("active");
-
-return;
-
-}
-
-loader.style.display = "flex";
-
-submitBtn.disabled = true;
-
-fetch(scriptURL, {
-method: "POST",
-body: new FormData(form)
-})
-.then(response => response.json())
-.then(data => {
-
-loader.style.display = "none";
-
-submitBtn.disabled = false;
-
-if(data.status === "success"){
-
-popupIcon.innerHTML = "🎉";
-
-popupTitle.innerHTML = "Registration Successful";
-
-popupMessage.innerHTML =
-"You have successfully registered for the BAASH experience.";
-
-popup.classList.add("active");
-
-form.reset();
-
-}else{
-
-popupIcon.innerHTML = "❌";
-
-popupTitle.innerHTML = "Registration Failed";
-
-popupMessage.innerHTML =
-"Something went wrong while submitting your registration.";
-
-popup.classList.add("active");
-
-}
-
-})
-.catch(error => {
-
-loader.style.display = "none";
-
-submitBtn.disabled = false;
-
-console.error(error);
-
-popupIcon.innerHTML = "⚠️";
-
-popupTitle.innerHTML = "Server Error";
-
-popupMessage.innerHTML =
-"Unable to connect to server. Please try again.";
-
-popup.classList.add("active");
-
+    if (data.status === "success") {
+      popupIcon.innerHTML = "🎉";
+      popupTitle.innerHTML = "Registration Successful";
+      popupMessage.innerHTML = "You have successfully registered for the BAASH experience.";
+      popupOverlay.classList.add("active");
+      form.reset();
+    } else {
+      popupIcon.innerHTML = "❌";
+      popupTitle.innerHTML = "Registration Failed";
+      popupMessage.innerHTML = "Something went wrong while submitting your registration.";
+      popupOverlay.classList.add("active");
+    }
+  })
+  .catch(error => {
+    loader.style.display = "none";
+    submitBtn.disabled = false;
+    console.error(error);
+    popupIcon.innerHTML = "⚠️";
+    popupTitle.innerHTML = "Server Error";
+    popupMessage.innerHTML = "Unable to connect to the server. Please check your connection and try again.";
+    popupOverlay.classList.add("active");
+  });
 });
 
-});
-
-function closePopup(){
-
-popup.classList.remove("active");
-
+function closePopup() {
+  popupOverlay.classList.remove("active");
 }
 
+popupOverlay.addEventListener("click", e => {
+  if (e.target === popupOverlay) closePopup();
+});
 </script>
 
 </body>
-
 </html>
-
